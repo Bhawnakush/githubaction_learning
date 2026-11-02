@@ -1,0 +1,40 @@
+name: "lab-4"
+on:
+  push: 
+    branches: [main]
+  pull_request: 
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ci:
+  name: "build & test"
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: ./sample-app
+  steps:
+    - name: "checkout repo"
+      uses: actions/checkout@v4
+    - name: "setup nodejs 20 "
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: sample-app/package-lock.json
+    - name: "install dependencies"
+      run: npm ci   
+    - name: "lint code"
+      run: npm run lint
+    - name: "run test"
+      run: npm test
+    - name: "verify app starts"
+      run: |
+        node index.js & APP_PID=$!
+        sleep 2
+
+        curl -f http://localhost:3000/health || exit 1
+
+        echo "app is healthy"
+
+        kill $APP_PID          

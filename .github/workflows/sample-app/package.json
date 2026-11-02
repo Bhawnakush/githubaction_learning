@@ -1,0 +1,18 @@
+{
+  "name": "devsecops-lab-app",
+  "version": "1.0.0",
+  "description": "Sample app for GitHub Actions DevSecOps course",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "lint": "echo 'Lint passed (add eslint for real linting)'"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  }
+}

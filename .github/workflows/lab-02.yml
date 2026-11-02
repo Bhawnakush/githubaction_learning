@@ -1,0 +1,45 @@
+name: "lan -02 "
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "checkout code"
+        uses: actions/checkout@v4
+      - name: "list file"
+        run: |
+          echo "current directory: $(pwd)"
+          echo ""
+          echo "files in repo"
+          ls -la
+          echo ""
+      - name: "setup node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: "verify nodes.js installation"
+        run: | 
+          echo "node version $(node --version)"
+          echo "npm version: $(npm --version)"
+      - name: "using evn variables"
+        env: 
+          MY_APP_NAME: "devsecops-demo"
+          BUILD_NUMBER: ${{github.run_number}}
+        run: |
+          echo "App: $MY_APP_NAME"    
+          echo "build: $BUILD_NUMBER"
+      - name: "generate a value"
+        id: generator
+        run: |
+          echo    echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_OUTPUT 
+          echo "random_id=$RANDOM" >> $GITHUB_OUTPUT   
+      - name : "this only run on PRs"
+        if: github.event_name == "pull_request"
+        run : echo "this is pr"
+                   
+

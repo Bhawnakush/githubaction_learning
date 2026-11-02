@@ -1,0 +1,25 @@
+name: "lab-01"
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "say hello"
+        run: echo "hello, devsecops "
+      - name: "show run info"
+        run: | 
+          echo "workflow:   ${{github.workflow}}"
+          echo "run number: ${{github.run_number}}"  
+          echo "actor:   ${{github.actor}}"
+          echo "event : ${{github.event_name}}"
+          ehco " branche :  ${{github.ref}}"
+          echo "commit SHA:  ${{github.sha}}"
+          echo "respo:  ${{github.repository}}"
+      - name: "show runner info"
+        run: |
+          echo "os: $(uname -a)"
+          echo "user : $(whoami)"
+          echo " working Directory: $(pwd)"    

@@ -45,7 +45,7 @@ jobs:
   deploy-staging:
     name: "deploy on staging"
     runs-on: ubuntu-latest
-    need: build
+    needs: build
     steps:
       - name: "deploy to staging"
         run: |
@@ -53,9 +53,9 @@ jobs:
   deploy-prod:
     name: "deploy to prod"
     runs-on: ubuntu-latest
-    need: deploy-staging
+    needs: deploy-staging
     steps:
       - name: "deploy to prod "
         run: |
           echo "deployed toprod"
-               
+

@@ -39,7 +39,7 @@ jobs:
           echo    echo "build_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_OUTPUT 
           echo "random_id=$RANDOM" >> $GITHUB_OUTPUT   
       - name : "this only run on PRs"
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         run : echo "this is pr"
                    
 
